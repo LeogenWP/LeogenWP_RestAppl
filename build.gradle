@@ -1,0 +1,52 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id "org.flywaydb.flyway" version "8.0.0-beta1"
+
+}
+
+group = 'com.leogenWP'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework:spring-tx:5.3.9'
+	implementation 'mysql:mysql-connector-java:8.0.25'
+	implementation 'org.flywaydb:flyway-core:7.13.0'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+flyway {
+	url = 'jdbc:mysql://localhost:3306/web5?serverTimezone=UTC'
+	user = 'root'
+	password = 'admin'
+	schemas = ['web5']
+	locations = ['filesystem:./sql']
+	sqlMigrationSeparator = '__'
+}
+
+
+
+test {
+	useJUnitPlatform()
+}
+
+
